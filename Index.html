@@ -9,6 +9,7 @@
 	<script src="js/parser.js"></script>
 	<script src="js/ast.js"></script>
 	<script src="js/codeGen.js"></script>
+	<script src="https://use.fontawesome.com/5682bd9388.js"></script>
 </head>
 <body>
 	<ul>
@@ -18,25 +19,37 @@
 	  <li><a href="#fail1">Fail 1</a></li>
 	</ul>
 	<form>
-	<button type = "button" onclick="lexer();">Compile?</button>
+		<button id="button" type = "button" onclick="lexer();">Compile?</button>
 	<!-- <button onclick="parser(); return false">PARSE ME!</button> -->
 	<!-- <button onclick="ast(); return false">ANALYZE ME!</button> -->
-	<div class="container">
+		<div class="container">
 		<!-- <label for="textarea">Input</label> -->
-		<textarea id="inputText" class="form-control" placeholder="Enter code" style="height: 180px;"></textarea>
+			<textarea id="inputText" class="form-control" placeholder="Enter code" style="height: 180px;"></textarea>
 		<!--document get id by value store in var-->
 		<!-- <label for="textarea">Input</label> -->
-		<textarea id="outputText" class="form-control noResize" placeholder="Here comes the code, do in do do" style="height: 180px;" readonly="readonly"></textarea>
+			<textarea id="outputText" class="form-control noResize" placeholder="Here comes the code, do in do do" style="height: 180px;" readonly="readonly"></textarea>
 		<!--document get id by value store in var-->
-		<textarea id="outputParse" class="form-control noResize" placeholder="CST goes here" style="height: 180px;" readonly="readonly"></textarea>
-	</br>
+			<textarea id="outputParse" class="form-control noResize" placeholder="CST goes here" style="height: 180px;" readonly="readonly"></textarea>
+		</br>
 		<!--document get id by value store in var-->
-		<textarea id="outputAST" class="form-control noResize" placeholder="AST goes here" style="height: 180px;" readonly="readonly"></textarea>
-		<textarea id="outputCode" class="form-control noResize" placeholder="Semantically Analyzed Output" style="height: 180px;" readonly="readonly"></textarea>
-		<textarea id="outputGen" class="form-control noResize" placeholder="Code Gen Here" style="height: 180px;" readonly="readonly"></textarea>
-	</div>
+			<textarea id="outputAST" class="form-control noResize" placeholder="AST goes here" style="height: 180px;" readonly="readonly"></textarea>
+			<textarea id="outputCode" class="form-control noResize" placeholder="Semantically Analyzed Output" style="height: 180px;" readonly="readonly"></textarea>
+			<textarea id="outputGen" class="form-control noResize" placeholder="Code Gen Here" style="height: 180px;" readonly="readonly"></textarea>
+		</div>
 	<!--button has to run lexer.js onclick-->
 	<!--I am one with the force.... the force probably isnt with me-->
-</form>
+	</form>
+	<div class="footer"><hr>
+	<div id="center" class="center"><p>Brendan Hegarty - Marist College 2017 - Last Updated 09/07/2017</p>
+	</div>
+	<!-- Social links here -->
+	<div id="right" class="right">
+			<a target="_blank" href="https://github.com/bthegarty"><i id="social-gt" class="fa fa-github fa-2x" aria-hidden="true"></i></a>
+			<a target="_blank" href="https://www.linkedin.com/in/brendan-hegarty-a91186104/"><i id="social-in" class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+			<a target="_blank" href="https://www.facebook.com/brendan.hegarty.14"><i id="social-fa" class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a>
+			<a target="_blank" href="https://www.instagram.com/b_hegs1/?hl=en"><i id="social-ig" class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+	</div>
+<hr>
+</div>
 </body>
 </html>
