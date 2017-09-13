@@ -42,23 +42,25 @@ button{
 /*I just feel like there should be a comment... idk why. It just felt emptey. so this is css, it makes things look less shitty*/
 
 ul {
+    display: inline-block;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     width: 100%;
-    background-image: linear-gradient(to bottom, #8FC1E3 1%, white 100%);
+    background-image: linear-gradient(to bottom, #8FC1E3 %, white %);
+    border-bottom: 2px solid #8FC1E3;
 }
 
 li {
-    float: left;
+    float: inherit;
+    display: inline-block;
 }
 
 li a {
-    display: block;
     color: #687864;
-    text-align: center;
+    text-align: inherit;
     padding: 14px 16px;
     text-decoration: none;
 }
@@ -68,14 +70,27 @@ li a:hover {
 }
 
 
-#center, #right{
-  display:inline-block;
+#home{
+  text-align: center !important;
+}
+
+#success{
+  float: left;
+}
+
+#fail{
+  float: right;
+}
+
+/*bottom bits*/
+.footer{
+  padding-top: 25px;
 }
 
 #right{
   box-sizing: border-box;
   padding-right:10px;
-  float: right;
+  text-align: center;
 }
 
 #social-gt{
@@ -87,8 +102,8 @@ li a:hover {
 }
 
 #social-in{
-  padding-left: 2px;
-  padding-right: 2px;
+  padding-left: 12px;
+  padding-right: 12px;
   color: black;
 }
 #social-in:hover{
@@ -97,7 +112,7 @@ li a:hover {
 }
 
 #social-fa{
-  padding-right: 2px;
+  padding-right: 12px;
   color: black;
 }
 #social-fa:hover{

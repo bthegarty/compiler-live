@@ -5,8 +5,6 @@ var CST = new Tree();//New tree creation
 
 
 function matchAndConsume (currTokenParse, parseCounter){
-//console.log(tokenParse[0][0]);
-//console.log(parseCounter);
 	if(currTokenParse == tokenParse[parseCounter][0]){
     console.log('Compairing ' + currTokenParse[0] + ' to the token in the array ' + tokenParse[parseCounter][0]);
 		document.getElementById('outputText').value += 'PARSER: Compairing ' + currTokenParse[0] + ' to the token in the array ' + tokenParse[parseCounter][0] + tokenParse[parseCounter][0] + "\n"
@@ -25,19 +23,12 @@ function parser(){
 //we kick off right here. This is the call function from lex
   parseProgram();
 
-	// if(tokenParse == true){
-	// 	document.getElementById("outputText").value += "Ooooo weeee we're Parsing with fire now"
-	// }//closes if
-	// else if(tokenParse == false){
-	// 	document.getElementById("outputText").value += "Something went wrong. The Parser totally found an error so we're just gonna stop now. k?"
-	// }//closes else
 }
 
 function parseProgram(){
 	console.log('were in program');
 	CST.addNode('Program', 'branch');
   parseBlock();
-	//parseCounter--;
   if (tokenParse[parseCounter]){
 		 matchAndConsume('$', parseCounter);//apparently I need the counter here because I wasn't passing through anything and outputing an empty array
 	}
@@ -50,7 +41,6 @@ function parseProgram(){
 	parseCounter++;
 	CST.endChildren();
 	astBegin();//automatically runs our AST if parse checks out
-	//document.getElementById(outputParse).value += CST.toString() + '\n';
 }
 
 function parseBlock(){
@@ -93,27 +83,19 @@ function parseStatementList(){
 	}
 	else if (tokenParse[parseCounter][0] == 'boolean'){
     parseStatement();
-    //CST.endChildren();
 		parseStatementList();
-    //CST.endChildren();
 	}
 	else if (tokenParse[parseCounter][1] == 'while'){
     parseStatement();
-    //CST.endChildren();
 		parseStatementList();
-    //CST.endChildren();
 	}
 	else if (tokenParse[parseCounter][1] == 'if'){
     parseStatement();
-    //CST.endChildren();
 		parseStatementList();
-    //CST.endChildren();
 	}
 	else if (tokenParse[parseCounter][0] == '{'){
 		parseStatement();
-		//CST.endChildren();
 		parseStatementList();
-		//CST.endChildren();
 	}
   else if (tokenParse[parseCounter][0] == '}'){
 		console.log('this is nothing and thats okay')
@@ -133,42 +115,33 @@ function parseStatement(){
   CST.addNode('Statement', 'branch');
   if (tokenParse[parseCounter][0] == 'print'){
     parsePrintStatement();
-		//CST.endChildren();
   }
   else if (tokenParse[parseCounter][1] == 'identifier'){
 		console.log('gotpastiD')
     parseAssignmentStatement();
-		//CST.endChildren();
   }
 	else if (tokenParse[parseCounter][0] == 'int'){
 			parseVarDecl();
-	    //CST.endChildren();
 	}
 	else if (tokenParse[parseCounter][0] == 'string'){
 		console.log('stringy');
 			parseVarDecl();
-	    //CST.endChildren();
 	}
 	else if (tokenParse[parseCounter][0] == 'boolean'){
 			parseVarDecl();
-	    //CST.endChildren();
 	}
   else if (tokenParse[parseCounter][0] == 'while'){
     parseWhileStatement();
-		//CST.endChildren();
   }
 	else if (tokenParse[parseCounter][0] == 'if'){
 		parseIfStatement();
-		//CST.endChildren();
 	}
   else if (tokenParse[parseCounter][0] == '{'){
     parseBlock();
-		//CST.endChildren();
   }
 	else{
 		console.log('error');
 	}
-  // kick(currTokenParse);
 	CST.endChildren();
 }
 
@@ -187,7 +160,6 @@ function parsePrintStatement(){
   matchAndConsume(')', parseCounter);
 	CST.addNode(tokenParse[parseCounter][0], 'leaf');
 	parseCounter++;
-  // kick(currTokenParse);
 	CST.endChildren();
 }
 
@@ -195,7 +167,6 @@ function parseAssignmentStatement(){
 	console.log('assignState');
   CST.addNode('AssignmentStatement', 'branch');
   parseId();
-	//CST.endChildren();
   matchAndConsume('=', parseCounter);
 	CST.addNode(tokenParse[parseCounter][0], 'leaf');
 	parseCounter++;
@@ -207,7 +178,6 @@ function parseAssignmentStatement(){
 function parseVarDecl(){
   CST.addNode('VarDecl', 'branch');
   parseType();
-	//CST.endChildren();
   parseId();
 	CST.endChildren();
 }
@@ -219,7 +189,6 @@ function parseWhileStatement(){
 	parseCounter++;
 
   parseBooleanExpr();
-	//CST.endChildren();
   parseBlock();
 	CST.endChildren();
 }
@@ -231,33 +200,26 @@ function parseIfStatement(){
 	parseCounter++;
 
   parseBooleanExpr();
-	//CST.endChildren();
   parseBlock();
 	CST.endChildren();
 }
 
 function parseExpr(){
-	//debugger;
 	console.log('expr');
   CST.addNode('Expr', 'branch');
   if(tokenParse[parseCounter][1] == "Digit"){
 		console.log('got the digit');
 		//force in a new node for digit. this will be our work around
 		parseIntExpr();
-		//CST.endChildren();
 	}
 	else if (tokenParse[parseCounter][1] == 'qoute'){
 		parseStringExpr();
-		//CST.endChildren();
 	}
 	else if (tokenParse[parseCounter][0] == '(' || tokenParse[parseCounter][0] == 'false' || tokenParse[parseCounter][0] == 'true'){
 		parseBooleanExpr();
-    //CST.endChildren();
-    //CST.endChildren();
 	}
 	else if (tokenParse[parseCounter][1] == 'identifier'){
 		parseId();
-		//CST.endChildren();
 	}
 	else{
 		document.getElementById('outputParse').value += 'Error: unexpected expression, Found: ' + tokenParse[parseCounter][0] + "\n"
@@ -273,15 +235,12 @@ function parseIntExpr(){
 	console.log('intexpr');
   CST.addNode('IntExpr', 'branch');
 	console.log('current: ' + tokenParse[parseCounter+1][0]);
-	//alert('comparing: ' + tokenParse[parseCounter][1])
   if (tokenParse[parseCounter][1] == 'Digit'){ // this needed to be a capital D
 		console.log('current: ' + tokenParse[parseCounter+1][0]);
 		parseDigit();
-		//CST.endChildren();
 		if (tokenParse[parseCounter][0] == '+'){
 			console.log('current: ' + tokenParse[parseCounter+1][0]);
 			parseIntOp();
-			//CST.endChildren();
 	  	parseExpr();
 			console.log('current: ' + tokenParse[parseCounter+1][0]);
 		}
@@ -291,7 +250,6 @@ function parseIntExpr(){
 		if (tokenParse[parseCounter][0] == '+'){
 			console.log('current: ' + tokenParse[parseCounter+1][0]);
 			parseIntOp();
-			//CST.endChildren();
 	  	parseExpr();
 			console.log('current: ' + tokenParse[parseCounter+1][0]);
 		}
@@ -304,14 +262,12 @@ function parseIntExpr(){
 }
 
 function parseStringExpr(){
-	//debugger;
   CST.addNode('StringExpr', 'branch');
   matchAndConsume('"', parseCounter);
 	CST.addNode(tokenParse[parseCounter][0], 'leaf');
 	parseCounter++;
 
   parseCharList();
-	//CST.endChildren();
   matchAndConsume('"', parseCounter);
 	CST.addNode(tokenParse[parseCounter][0], 'leaf');
 	parseCounter++;
@@ -319,7 +275,6 @@ function parseStringExpr(){
 }
 
 function parseBooleanExpr(){
-	//debugger;
   CST.addNode('BooleanExpr', 'branch');
 	if (tokenParse[parseCounter][0] == '('){
 		matchAndConsume('(', parseCounter);
@@ -327,19 +282,17 @@ function parseBooleanExpr(){
 		parseCounter++;
 
   	parseExpr();
-		//CST.endChildren();
+
   	parseBoolOp();
-		//CST.endChildren();
+
   	parseExpr();
-		//CST.endChildren();
+
   	matchAndConsume(')', parseCounter);
 		CST.addNode(tokenParse[parseCounter][0], 'leaf');
 		parseCounter++;
-		//parseCounter++;
 	}
 	else{
 		parseBoolVal();
-		//CST.endChildren();
 	}
 	CST.endChildren();
 }
@@ -352,13 +305,10 @@ function parseId(){
 }
 
 function parseCharList(){
-	//console.log(charlist);
   CST.addNode('CharList', 'branch');
 	if (tokenParse[parseCounter][1] == 'StringExpr'){
 		parseChar();
-		//CST.endChildren();
   	parseCharList();
-		//CST.endChildren();
 	}
   else{
   // epsilon production
@@ -389,13 +339,10 @@ function parseType(){
 }
 
 function parseChar(){
-	//debugger;
 	CST.addNode('Char', 'branch');
 	if (tokenParse[parseCounter][1].search(T_char) != -1){
-			//matchAndConsume(tokenParse[parseCounter][0], 'leaf');
 		  CST.addNode(tokenParse[parseCounter][0] , 'leaf');
       parseCounter++;
-			//parseCounter++;
 	}
   else {
     console.log('errors with Char');
@@ -403,15 +350,9 @@ function parseChar(){
 	CST.endChildren();
 }
 
-// function parseSpace(){
-// 	//idk if this requires a branch
-// 	//matchAndConsume(/ \s/, parseCounter);
-// 	//idk if it needs leaf either
-// }
 
 function parseDigit(){
 	CST.addNode('Digit', 'branch');
-	//matchAndConsume('digit', parseCounter);
 	CST.addNode(tokenParse[parseCounter][0], 'leaf');
 	parseCounter++;
 	CST.endChildren();

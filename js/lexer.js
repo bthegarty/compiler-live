@@ -2,12 +2,6 @@
 //Lexer and Token list
 /*Gonna see miss eliza*/
 
-//current error with output being instantly whiped
-// function Ext.Loader.setConfig(){
-//     var disableCaching: false,
-//     var enabled: true
-// };
-//this was for reload crashing. Should be fine now but this is staying commented in just in case i forget
 			var space = /[ \s]/; //ignored by lex
 	    var ws = /[space]/; //no action - no return
 			var newline = /[ \r\n]/; //new line (only works with single chars if they have a space at the end)
@@ -54,13 +48,8 @@ var newToken = class {
 
 var forward = 0;//counter for multi char switch
 
-// function Error(message) {
-//    this.message = message;
-//    this.name = 'Error';
-// }
 
 function lexer (){
-	//debugger;
 	lexmemeCount = 0;
 	currLineNum = 1;
 	var inputText = document.getElementById("inputText").value;
@@ -68,17 +57,14 @@ function lexer (){
 	console.log("Lexing " + currLineNum);
 	document.getElementById("outputText").value += "please hold for lex " + currLineNum + "\n";
 
-	// console.log ("We're checking your shit for you, fam");
 	for (lexmemeBegin = 0; lexmemeBegin < inputText.length; lexmemeBegin++){
-		//debugger;
-		//alert('forwarad at the top of the loop' + forward);
+
 		currToken = inputText[lexmemeBegin];
 		status = true;
 
 		//forward for more than one char and match
 		console.log('scanning');
 
-		//alert('forward at the bottom of the loop' + forward);
 		amIToken = false;
 		amIString(lexmemeBegin, newToken, inputText);
 		amISymbol(lexmemeBegin, newToken, inputText);
@@ -89,7 +75,6 @@ function lexer (){
 		isLParen(currToken);
 		isRParen(currToken);
 		isPlus(currToken);
-		//isQoute(currToken);
 		isDigit(currToken);
 		isEOP(currToken);
 
@@ -102,15 +87,6 @@ function lexer (){
 
 	}//closes for
 
-	//console.log(tokenParse + 'final output'); for parse
-
-	// if(amIToken == true){
-	// 	document.getElementById("outputText").value += "SUCCESS: Here ya go. I'm like 95% sure this is a successful lex... yay!"
-	// 	//parser();
-	// }//closes if
-	// else if(amIToken == false){
-	// 	document.getElementById("outputText").value += "ERROR: Something went wrong cause your program didn't Lex. Hold on one sec, I'll call someone.. **I'm not actually gonna call anyone**"
-	// }//closes else
 	parser();
 /*gonna see miss eliza*/
 }//close function lexer
@@ -128,14 +104,12 @@ function amISymbol(forward, newToken, inputText){
 				if ((inputText[forward]).search(T_assign) != -1){
 					tempVar += inputText[forward];
 					forward++;
-					//lexmemeBegin = forward;
 					state = 1;
 					break;
 				}//closes if
 				else if ((inputText[forward].search(T_notequal)) != -1){
 					tempVar += inputText[forward];
 					forward++;
-					//lexmemeBegin = forward;
 					state = 2;
 					break;
 				}//closes else if
@@ -187,7 +161,6 @@ function amISymbol(forward, newToken, inputText){
 					console.log('unrecognized token');
 					amIToken = false;
 					runSymbolCheck = false;
-					//throw new Error ("Lexical Error: invalid token detected");
 					break;
 				}//closes else
 		}//closes switch
@@ -204,9 +177,7 @@ function amIString(forward, newToken, inputText){
 	while (runStringCheck){
 		switch(state){
 			case 0:
-			//debugger;
 				if ((inputText[forward]) == '"'){
-					//debugger;
 					var tokenid = new newToken(inputText[forward], "qoute", currLineNum);
 					tokenHole.push(tokenid.desc, tokenid.type, tokenid.currLineNum);
 					tokenParse.push([tokenid.desc, tokenid.type, tokenid.currLineNum]);
@@ -215,7 +186,6 @@ function amIString(forward, newToken, inputText){
 					amIToken = true;
 					tokenHole = [];
 					tempVar = '';
-					// amIToken = true;
 					forward++;
 					state = 1;
 					break;
@@ -259,7 +229,7 @@ function amIString(forward, newToken, inputText){
 						amIToken = true;
 						tokenHole = [];
 						tempVar = '';
-						// amIToken = true;
+
 						tempVar += inputText[forward];
 						var tokenid = new newToken(tempVar, "qoute", currLineNum);//finds the closing qoute for string
 						lexmemeBegin = forward;
@@ -269,7 +239,7 @@ function amIString(forward, newToken, inputText){
 						document.getElementById("outputText").value += "Lexer: " + tokenHole[1] + " --> " + tokenHole[0] + "\n";
 						amIToken = true;
 						tokenHole = [];
-						// amIToken = true;
+
 						runStringCheck = false;
 						break;
 					}
@@ -295,10 +265,8 @@ function amIMultiChar(forward, newToken, inputText){
 		switch(state){
 			case 0:
 				if((inputText[forward]).search(T_char) != -1){
-					//alert('state 0');
 					tempVar += inputText[forward];
 					forward++;
-					//alert('forward at case 1 ' + forward);
 					state = 1;
 					break;
 				}//closes if
@@ -307,7 +275,6 @@ function amIMultiChar(forward, newToken, inputText){
 					break;
 				}//closes else
 			case 1:
-			//alert(inputText[forward]);//running into an issue with finding chars. The if is turning true. it shouldn't
 				if(inputText[forward] == undefined){
 					var tokenid = new newToken(tempVar, "identifier", currLineNum);
 					tokenHole.push(tokenid.desc, tokenid.type, tokenid.currLineNum);
@@ -321,8 +288,6 @@ function amIMultiChar(forward, newToken, inputText){
 					break;
 				}
 				else if((inputText[forward]).search(T_char) != -1){
-					//alert('state 1');
-					//alert(' this is the forawrd counter ' + forward);
 					tempVar += inputText[forward];
 					forward++;
 					state = 2;
@@ -330,7 +295,6 @@ function amIMultiChar(forward, newToken, inputText){
 					//put if check here because if we go further its looking for more than 2 char
 				}
 				else {
-					//alert('id success');
 					var tokenid = new newToken(tempVar, "identifier", currLineNum);
 					tokenHole.push(tokenid.desc, tokenid.type, tokenid.currLineNum);
 					tokenParse.push([tokenid.desc, tokenid.type, tokenid.currLineNum]);
@@ -338,12 +302,10 @@ function amIMultiChar(forward, newToken, inputText){
 					document.getElementById("outputText").value += "Lexer: " + tokenHole[1] + " --> " + tokenHole[0] + "\n";
 					tokenHole = [];
 					amIToken = true;
-					//lexmemeBegin = forward;
 					runMultiCheck = false;
 					break;
 				} //this still needs a space at the end
 				case 2:
-				//alert('state 2'); //forward loop where we go too far ahead?
 					if (tempVar == 'if'){
 						lexmemeBegin = forward;
 						var tokenid = new  newToken(tempVar, "if", currLineNum);
@@ -469,9 +431,6 @@ function isLParen(currToken){
  		var tokenid = new newToken(currToken, "Left Parenthesis", currLineNum);
  		tokenHole.push(tokenid.desc, tokenid.type, tokenid.currLineNum);
 		tokenParse.push([tokenid.desc, tokenid.type, tokenid.currLineNum]);
- 		//console.log('Lexer' + tokenHole[lexmemeCount][1]+ ' '+ tokenhole[lexmemeCount[0]]); attemping to make a 2D array to store and return tokens... attempting
- 		//documet.getElementById("output").value += 'Token on line number ' + tokenHole[lexmemeCount][2]+' "' + tokenhole[lexmemecount][0] + '" -->' +
- 		//lexmemeCount++;
  		console.log("Found Token: " + tokenHole[1] + " " + tokenHole[0]);
 		document.getElementById("outputText").value += "Lexer: " + tokenHole[1] + " --> " + tokenHole[0] + "\n";
 		amIToken = true;
@@ -482,13 +441,11 @@ function isLParen(currToken){
 		}
 }//ends function
 function isRParen(currToken){
-	//debugger;
  	if(currToken.search(T_RParen) != -1){
  		var tokenid = new newToken(currToken, "Right Parenthesis", currLineNum);
  		tokenHole.push(tokenid.desc, tokenid.type, tokenid.currLineNum);
 		tokenParse.push([tokenid.desc, tokenid.type, tokenid.currLineNum]);
 
- 		//lexmemeCount++;
  		console.log("Found Token: " + tokenHole[1] + " " + tokenHole[0]);
 		document.getElementById("outputText").value += "Lexer: " + tokenHole[1] + " --> " + tokenHole[0] + "\n";
 		amIToken = true;
@@ -503,14 +460,11 @@ function isLBrac(currToken){
  		var tokenid = new newToken(currToken, "Left Bracket", currLineNum);
  		tokenHole.push(tokenid.desc, tokenid.type, tokenid.currLineNum);
 		tokenParse.push([tokenid.desc, tokenid.type, tokenid.currLineNum]);
-		//console.log(tokenParse);//put in place for parse testing
 
- 		//lexmemeCount++;
  		console.log("Found Token: " + tokenHole[1] + " " + tokenHole[0]);
 		document.getElementById("outputText").value += "Lexer: " + tokenHole[1] + " --> " + tokenHole[0] + "\n";
 		amIToken = true;
 		tokenHole = [];
-		//console.log(tokenParse);
 	}
 		else{
 
@@ -523,7 +477,6 @@ function isRBrac(currToken){
  		var tokenid = new newToken(currToken, "Right Bracket", currLineNum);
  		tokenHole.push(tokenid.desc, tokenid.type, tokenid.currLineNum);
 		tokenParse.push([tokenid.desc, tokenid.type, tokenid.currLineNum]);
- 		//lexmemeCount++;
  		console.log("Found Token: " + tokenHole[1] + " " + tokenHole[0]);
 		document.getElementById("outputText").value += "Lexer: " + tokenHole[1] + " --> " + tokenHole[0] + "\n";
 		amIToken = true;
@@ -538,7 +491,6 @@ function isPlus(currToken){
  		var tokenid = new newToken(currToken, "Plus", currLineNum);
  		tokenHole.push(tokenid.desc, tokenid.type, tokenid.currLineNum);
 		tokenParse.push([tokenid.desc, tokenid.type, tokenid.currLineNum]);
- 		//lexmemeCount++;
  		console.log("Found Token: " + tokenHole[1] + " " + tokenHole[0]);
 		document.getElementById("outputText").value += "Lexer: " + tokenHole[1] + " --> " + tokenHole[0] + "\n";
 		amIToken = true;
@@ -554,7 +506,6 @@ function isPlus(currToken){
   		var tokenid = new newToken(currToken, "Digit", currLineNum);
   		tokenHole.push(tokenid.desc, tokenid.type, tokenid.currLineNum);
 			tokenParse.push([tokenid.desc, tokenid.type, tokenid.currLineNum]);
-  		//lexmemeCount++;
   		console.log("found Token: " + tokenHole);
  			document.getElementById("outputText").value += "Lexer: " + tokenHole[1] + " --> " + tokenHole[0] + "\n";
 			amIToken = true;
@@ -569,14 +520,12 @@ function isPlus(currToken){
   		var tokenid = new newToken(currToken, "End Of Program", currLineNum);
   		tokenHole.push(tokenid.desc, tokenid.type, tokenid.currLineNum);
 			tokenParse.push([tokenid.desc, tokenid.type, tokenid.currLineNum]);
-  		//lexmemeCount++;
   		console.log("Found Token: " + tokenHole);
  			document.getElementById("outputText").value += "Lexer: " + tokenHole[1] + " --> " + tokenHole[0] + "\n";
 			amIToken = true;
  			tokenHole = [];
  		}
  		else{
-			//document.getElementById("outputText").value += "Lexer warning: Did not find EOP marker    ";
 			//this ran through every token and would output. soooo not ideal. but i like the idea and ill come back to it
  		}
  }//ends function

@@ -28,22 +28,22 @@ function backPatch(){//so we can add many 00's
 function substitute(){//will replace our T0 XX's
 console.log(JSON.stringify(byte));
 console.log("codePointer", codePointer);
-//debugger;
+
   var howManyVariablesWeveSubtitedCount = 0;
 
   while(howManyVariablesWeveSubtitedCount < tempVarNum){
     console.log("var count " + howManyVariablesWeveSubtitedCount);
-    // console.log("Index 2 " + byte[byteIndex]);
+
     for(var byteIndex = 0; byte.length > byteIndex; byteIndex++){
       console.log("bytes " + byte[byteIndex]);
       if(byte[byteIndex] == "T" + howManyVariablesWeveSubtitedCount){// When we find a Tx replace with location in stack
-        //howManyVariablesWeveSubtitedCount = howManyVariablesWeveSubtitedCount + 1;
+
         byte[byteIndex] = (codePointer + howManyVariablesWeveSubtitedCount+1).toString(16).toUpperCase();
       }
       else if(byte[byteIndex] == "XX"){ //when we find XX replace with 00
         byte[byteIndex] = "00";
       }
-      //byteIndex++;
+
     }
     howManyVariablesWeveSubtitedCount = howManyVariablesWeveSubtitedCount +1;
   }
@@ -71,43 +71,24 @@ function codeGenBegin(){
 
 //We have to traverse AST to get to Code gen
 function traverseAST(node){
-	//debugger;
   //add ability to parse leaf node here
 	if (!node.children || node.children.length == 0){
-    //console.log(byte[codePointer++] = "leaf");
     //posivly ignoring the node aspect
 	}
 	else{
 
 			for (var i = 0; i < node.children.length; i++){
-					//expand(node.children[i], depth + 1);
-					//debugger;
+
           if(node.children[i].name == 'Block'){
             scopeCounter++;
           }
 					else if (node.children[i].name == 'VarDecl'){
-						//console.log('if 1');
-						generateVar(node.children[i]);
-				    //astStatement();
 
-				    //astStatementList();
+						generateVar(node.children[i]);
+
 
 				  }
-					// else if (node.children[i].name == 'VarDecl'){
-					// 	AST.addNode('VarDecl', 'branch');
-					// 	astType(node.children[i].children[0].children[0].name);
-          //
-				  //   addIdToTree(node.children[i].children[1].children[0].children[0].name);
-					// 			semanticAST.push(node.children[i].children[0].children[0].name);
-					// 	    semanticAST.push(node.children[i].children[1].children[0].children[0].name);//push boolean to semanticAnalist
-					// 	    semanticAST.push(scopeCounter);//increment counter
-					// 	    semanticAST.push(false);//log false at first pass
-          //
-					// 	    scopeCheck();
-					// 	    semanticAST = [];
-					// 		AST.endChildren();
-					// 	//console.log('if id');
-					// }
+
 					else if (node.children[i].name == 'PrintStatement'){
             //debugger;
 				    generatePrint(node.children[i]);
@@ -131,7 +112,7 @@ function traverseAST(node){
 					// }
 					else{
 						console.log('Found: ' + node.children[i].name)
-						//throw new Error('Expected ' + currTokenParse + ' Found: ' + tokenParse[parseCounter][0]);
+
 						// epsilon production
 					}
 					traverseAST(node.children[i]);
@@ -149,8 +130,7 @@ function generatePrimitive(){
 }
 
 function generateString(string) {
-  //debugger;
-  //var string = node.value;
+
   var stringPointer = heapCounter - string.length;
 
   for(var i = 0; i < string.length; i++) {
@@ -163,7 +143,7 @@ function generateString(string) {
 }
 
 function generateVar(VarDeclNode){
-  //debugger;
+
   var temp = "T" + tempVarNum++;//temp var for giving uninitalized vars the value of 0
   if(VarDeclNode.children[0].name == 'int' || VarDeclNode.children[0].name == 'boolean'){//these dont use the heap
     generatePrimitive();
@@ -191,7 +171,6 @@ function generateAssignment(AssignmentStatementNode){
   var valueIsString = variableValue.search(T_char) != -1;
   var valueIsBoolean = variableValue.search(T_true || T_false) != -1;//maybe (T_boolean)
 
-  //debugger;
 
   if(valueIsDigit) {
     loadAccWithConst("0" + variableValue.toString(16));
@@ -201,8 +180,6 @@ function generateAssignment(AssignmentStatementNode){
     var stringMemoryAddress = generateString(variableValue);
     loadAccWithConst(stringMemoryAddress);
 
-    //debugger;
-
     /* how do I get out of here? */
   }
   else if(valueIsBoolean){
@@ -211,6 +188,8 @@ function generateAssignment(AssignmentStatementNode){
     /* handle boolean */
   }
 }
+
+//this is yet to be implemented
 
 // function generateAssignment(AssignmentStatementNode){
 //   //debugger;
@@ -259,14 +238,12 @@ function generatePrint(PrintStatementNode){
   var nodeName = PrintStatementNode.children[0].name;
   var varName = staticTable.find(function(entry){return nodeName == entry[1]});
   if(nodeName.search(T_digit) != -1){
-      // console.log(AssignmentStatementNode.children[1].name.toString(16));
-      // loadAccWithConst(AssignmentStatementNode.children[1].name.toString(16));
-      //storeAccInMem(varAdd[0]);
+
       loadYwithConst("0" + nodeName.toString(16));
       loadXwithConst("01");
   }
   else if(varName){//var references
-    //debugger;
+
     loadYfromMem(varName[0]);
     loadXwithConst("01");
     //booleans seem to go through here right now.
@@ -282,11 +259,6 @@ function generatePrint(PrintStatementNode){
       //generateString(PrintStatementNode.children[0].name.toString(16));
   }
   systemCall();
-  // var printAdd = staticSearch();
-  // if(PrintStatementNode.children[0].name.search(T_print) != -1){
-
-
-  // }
 
 }
 
@@ -304,6 +276,7 @@ function stringPrint(){
 
 
 //These funcitons are for loading the byte array
+//commented out is yet to be implemented
 
 
 function loadAccWithConst(constant){

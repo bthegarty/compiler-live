@@ -14,26 +14,21 @@ function addIdToTree(identifier){
 }
 
 function traverseCST(node){
-	//debugger;
+
 	if (!node.children || node.children.length == 0){
-			// ...note the leaf node.
-			//traversalResult += "[" + node.name + "]";
-			//traversalResult += "\n";
+
 	}
 	else{
 			//There are children, so note these interior/branch nodes and...
-			//traversalResult += "<" + node.name + "> \n";
 			// ...recursively expand them.
 			for (var i = 0; i < node.children.length; i++)
 			{
-					//expand(node.children[i], depth + 1);
+
 					//debugger;
 					if (node.children[i].name == 'Block'){
 						console.log('if 1');
 						astBlock();
-				    //astStatement();
 
-				    //astStatementList();
 
 				  }
 					else if (node.children[i].name == 'VarDecl'){
@@ -49,7 +44,7 @@ function traverseCST(node){
 						    scopeCheck();
 						    semanticAST = [];
 								AST.endChildren();
-						//console.log('if id');
+
 					}
 					else if (node.children[i].name == 'PrintStatement'){
 						AST.addNode('PrintStatement', 'branch')
@@ -61,8 +56,7 @@ function traverseCST(node){
 					else if (node.children[i].name == 'IfStatement'){
             AST.addNode('IfStatement', 'branch')
 						astBooleanExpr(node.children[i].children[1]);
-						//astBlock();
-					  //AST.endChildren();
+
 					}
 					else if (node.children[i].name == 'AssignmentStatement'){
             AST.addNode('AssignmentStatement', 'branch')
@@ -73,11 +67,10 @@ function traverseCST(node){
 					else if (node.children[i].name == 'WhileStatement'){
             AST.addNode('WhileStatement', 'branch')
 						astBooleanExpr(node.children[i].children[1]);
-					  //AST.endChildren();
+
 					}
 					else{
 						console.log('Found: ' + node.children[i].name)
-						//throw new Error('Expected ' + currTokenParse + ' Found: ' + tokenParse[parseCounter][0]);
 						// epsilon production
 					}
 					traverseCST(node.children[i]);
@@ -85,22 +78,10 @@ function traverseCST(node){
 						scopeCounter--;//reverts back in scope number whenever we find a closing bracket
 						AST.endChildren();
 						if(node.name == 'IfStatement' | 'WhileStatement'){
-						// 	AST.addNode('IfStatement', 'branch')
-						// 	astBooleanExpr(node.children[i].children[1]);
-						//  astBlock();
+
 							AST.endChildren()
 						}
-						// else if (node.children[i].name == 'WhileStatement'){
-	          //   AST.addNode('WhileStatement', 'branch')
-						//
-						//   AST.endChildren();
-						// }
 					}
-					// else{
-					// 	document.getElementById('outputCode').value += 'Something is not right with ' + symbolArray[0] + "\n"
-					// 	throw new Error('You did something really wrong here, dude. Like really wrong');
-					// this error catch was really wrong lol
-					// }
 			}
 	}
 }
@@ -112,10 +93,9 @@ function printSemanticAnalist(){
 }
 
 function matchAndConsume (currTokenAST, astCounter){
-//console.log(tokenParse[0][0]);
-//console.log(astCounter);
+
 	if(currTokenAST == tokenParse[astCounter][0]){
-		//AST.addNode(currTokenAST,'leaf');
+
     console.log('Compairing ' + currTokenAST[0] + ' to the token in the array ' + tokenParse[astCounter][0]);
     document.getElementById('outputText').value += 'AST: Compairing ' + currTokenAST[0] + ' to the token in the array ' + tokenParse[astCounter][0] + "\n"
 	}
@@ -138,30 +118,20 @@ function astBegin(){
 
 function astProgram(){
 	console.log('were in program');
-	//AST.addNode('Block', 'branch');
   astBlock();
-  //matchAndConsume('$', astCounter);//apparently I need the counter here because I wasn't passing through anything and outputing an empty array
-	//AST.addNode(tokenParse[astCounter][0], 'leaf');
-	//document.getElementById('outputAST').value += AST.toString() + "\n"
-  //document.getElementById('outputCode').value += semanticAST[2] + semanticAST[1] + semanticAST[0] + "\n"
 	console.log(AST.toString());
 	astCounter++;
-	//document.getElementById(outputParse).value += AST.toString() + '\n';
+
 }
 
 function astBlock(){
   //scope checking begins here
 	console.log('we made it to block');
   AST.addNode('Block', 'branch');
-  //matchAndConsume('{', astCounter);
-	//AST.addNode(tokenParse[astCounter][0], 'leaf');
   scopeCounter++;//scope counter starts at 0 and increases every time we find a {}
 	astCounter++; // denotes new scope
 
-	//astStatementList();
 
-	//matchAndConsume('}', astCounter);
-	//AST.addNode(tokenParse[astCounter][0], 'leaf');
 	astCounter++;
 
 }
@@ -224,7 +194,6 @@ function astStatementList(){
 	}
 	else{
 		console.log('Found: ' + tokenParse[astCounter][0])
-		//throw new Error('Expected ' + currTokenParse + ' Found: ' + tokenParse[parseCounter][0]);
 		// epsilon production
 	}
 
@@ -269,25 +238,21 @@ function astStatement(){
 	else{
 		console.log('error');
 	}
-  // kick(currTokenAST);
+
 }
 
 function astPrintStatement(){
 	console.log('printState');
   AST.addNode('PrintStatement', 'branch');
-  //matchAndConsume('print', astCounter);
-	//AST.addNode(tokenParse[astCounter][0], 'leaf');
+
 	astCounter++;
 
-	//matchAndConsume('(', astCounter);
-	//AST.addNode(tokenParse[astCounter][0], 'leaf');
 	astCounter++;
 
 	astExpr();
-  //matchAndConsume(')', astCounter);
-	//AST.addNode(tokenParse[astCounter][0], 'leaf');
+
 	astCounter++;
-  // kick(currTokenAST);
+
 	AST.endChildren();
 }
 
@@ -300,10 +265,9 @@ function astAssignmentStatement(){
 		console.log('Symbol definition errors')
 	}
   else{
-    //matchAndConsume('=', astCounter);
-	   //AST.addNode(tokenParse[astCounter][0], 'leaf');
+
 	    astCounter++;
-			//debugger;
+
 	    astExpr(symbolArray, true);
 
   }
@@ -320,8 +284,6 @@ function astVarDecl(){
 
 function astWhileStatement(){
   AST.addNode('WhileStatement', 'branch');
-  //matchAndConsume('while', astCounter);
-	//AST.addNode(tokenParse[astCounter][0], 'leaf');
 
   astBooleanExpr();
 
@@ -331,7 +293,6 @@ function astWhileStatement(){
 
 function astIfStatement(){
   AST.addNode('IfStatement', 'branch');
-  //matchAndConsume('if', astCounter);
 	AST.addNode(tokenParse[astCounter][0], 'leaf');
 	astCounter++;
 
@@ -405,7 +366,7 @@ function astExpr(ExprNode, callAssignmentStatement, symbolArray){
 			else if (symbolDos[3]){
 				if (symbolArray[0] == symbolDos[0]){
 					console.log('checking for errors here fam');
-					//AST.endChildren();
+
 				}
 				else{
 					console.log("Type Mismatch Error");
@@ -426,24 +387,24 @@ function astExpr(ExprNode, callAssignmentStatement, symbolArray){
 	else{
 		if(ExprNode.children[0].name == 'IntExpr'){
 			astIntExpr(ExprNode.children[0]);
-			//AST.endChildren();
+
 			if (ExprNode.children[0].children[0].children[0].name == "StringExpr"){
 				document.getElementById('outputCode').value += 'Type Mismatch Error' + "\n"
 				throw new Error ('Type Mismatch at IntExpr. Can not match string');
 			}
 		}
 		else if (ExprNode.children[0].name == 'StringExpr'){
-			//console.log('got the string');
+
 			astStringExpr(ExprNode.children[0]);
-			//AST.endChildren();
+
 		}
 		else if (ExprNode.children[0].name == 'BooleanExpr'){
-			//console.log('got the boolean');
+
 			astBooleanExpr(ExprNode.children[0]);
-			//AST.endChildren();
+
 		}
 		else if (ExprNode.children[0].name == 'Id'){
-			//debugger;
+
 			var symbolDos = astId(ExprNode.children[0].children[0].children[0].name);
 			if (symbolDos == null){
 				console.log('undefined id');
@@ -472,13 +433,6 @@ function astIntExpr(IntExprNode){
 
 		AST.endChildren();
 
-		// if (tokenParse[astCounter][0] == '+'){
-		// 	console.log('current: ' + tokenParse[astCounter+1][0]);
-		// 	astIntOp();
-		//
-	  // 	astExpr();
-		// 	console.log('current: ' + tokenParse[astCounter+1][0]);
-		// }
 	}
 	else{
 		AST.addNode(IntExprNode.children[0].children[0].name, 'leaf');
@@ -486,39 +440,18 @@ function astIntExpr(IntExprNode){
 }
 
 function astStringExpr(StringExprNode){
-	//debugger;
+
 	AST.addNode(StringExprNode.children[1].children[0].children[0].name, 'leaf');
-  //matchAndConsume('"', astCounter);
-	//AST.addNode(tokenParse[astCounter][0], 'leaf');
-	// astCounter++;
-	//
-  // astCharList();
-	// //AST.endChildren();
-  // //matchAndConsume('"', astCounter);
-	// //AST.addNode(tokenParse[astCounter][0], 'leaf');
-	// astCounter++;
+
 }
 
 function astBooleanExpr(BooleanExprNode){
 console.log("boolean expr we in it");
 	if (BooleanExprNode.children[0].name == 'BoolVal'){
 		AST.addNode(BooleanExprNode.children[0].children[0].name, 'leaf');
-		//matchAndConsume('(', astCounter);
-		//AST.addNode(tokenParse[astCounter][0], 'leaf');
+
 	}
-		//astCounter++;
-		// console.log("HEY 'AGRESSIVE NAME HERE' " + tokenParse[astCounter+1]);
-		// AST.addNode(tokenParse[astCounter+1][0], 'branch');
-  	// astExpr();
-		//
-  	// astBoolOp();
-		//
-  	// astExpr();
-		//
-  	// //matchAndConsume(')', astCounter);
-		// //AST.addNode(tokenParse[astCounter][0], 'leaf');
-		// astCounter++;
-		// AST.endChildren();
+
 	else{
 		astBoolOp(BooleanExprNode.children[2]);
 		astExpr(BooleanExprNode.children[1]);
@@ -529,7 +462,6 @@ console.log("boolean expr we in it");
 }
 
 function astId(identifier){
-	//AST.addNode(identifier, 'leaf');
   //tpe checking for single id's
   //cant have int a & string a in the same scope
 	var identifierCheck = tokenParse[astCounter][0]; //run first id check
@@ -541,8 +473,6 @@ function astId(identifier){
       break
     }
   }
-  //AST.addNode('Id', 'branch');
-  //astChar();
 
   if(idCheck){
     return semanticAnalist[i]; //return table on id check
@@ -561,10 +491,7 @@ function astCharList(){
 
 
 	}
-	// else if (tokenParse[astCounter][0] == 'space'){
-  // 	parseSpace();//space character
-  // 	astCharList();
-	// }
+
   else{
   // epsilon production
 	}
@@ -574,81 +501,18 @@ function astCharList(){
 function astType(type){
 	AST.addNode(type, 'leaf');
   //type checking starts here considering it needs to be an int/string/bool
-// 	if (tokenParse[astCounter][1] == 'int'){
-// 		//matchAndConsume('int', astCounter);
-// 		AST.addNode(tokenParse[astCounter][0], 'leaf');
-// 		//var scopeCheck = new newScope(tokenParse[astCounter], scopeCounter);
-// 		semanticAST.push(tokenParse[astCounter][0]);
-// 		astCounter++;
-//     semanticAST.push(tokenParse[astCounter][0]);//push boolean to semanticAnalist
-//     semanticAST.push(scopeCounter);//increment counter
-//     semanticAST.push(false);//log false at first pass
-//
-//     scopeCheck();
-//     semanticAST = [];
-// 	}
-// 	else if (tokenParse[astCounter][1] == 'string'){
-// 		//matchAndConsume('string', astCounter);
-// 		AST.addNode(tokenParse[astCounter][0]);
-//     semanticAST.push(tokenParse[astCounter][0]);
-// 		astCounter++;
-//     semanticAST.push(tokenParse[astCounter][0]);//push boolean to semanticAnalist
-//     semanticAST.push(scopeCounter);//increment counter
-//     semanticAST.push(false);//log false at first pass
-//
-//     scopeCheck();
-//     semanticAST = [];
-// 	}
-// 	else if (tokenParse[astCounter][1] == 'boolean'){
-// 		matchAndConsume('boolean', astCounter);
-// 		AST.addNode(tokenParse[astCounter][0], 'leaf');
-//     semanticAST.push(tokenParse[astCounter][0]);
-// 		astCounter++;
-//     semanticAST.push(tokenParse[astCounter][0]);//push boolean to semanticAnalist
-//     semanticAST.push(scopeCounter);//increment counter
-//     semanticAST.push(false);//log false at first pass
-//
-//     scopeCheck();//calls back to scopeCheck funtion
-//     semanticAST = [];
-// 	}
-// }
-//
-// function astChar(){
-// 	if (tokenParse[astCounter][1].search(T_char) != -1){
-// 		    AST.addNode(tokenParse[astCounter][0] , 'leaf')
-//         astCounter++;
-// 	}
-//   else {
-//     console.log('errors with Char');
-//     document.getElementById('outputCode').value += 'Character Error' + "\n"
-//   }
-}
 
-// function parseSpace(){
-// 	//idk if this requires a branch
-// 	//matchAndConsume(/ \s/, astCounter);
-// 	//idk if it needs leaf either
-// }
+}
 
 //add descriptor to nodes for codegen
 function astDigit(DigitNode){
-	//matchAndConsume('digit', astCounter);
 	AST.addNode(DigitNode.children[0].name, 'leaf');
-	//astCounter++;
+
 }
 
 function astBoolOp(BoolOpNode){
 	AST.addNode(BoolOpNode.children[0].name, 'branch');
-	// if(tokenParse[astCounter][0] == '=='){
-	// 	//matchAndConsume('==', astCounter);
-	// 	//AST.addNode(tokenParse[astCounter][0], 'leaf');
-	// 	astCounter++;
-	// }
-	// else if (tokenParse[astCounter][0] == '!='){
-	// 	//matchAndConsume('!=', astCounter);
-	// 	//AST.addNode(tokenParse[astCounter][0], 'leaf');
-	// 	astCounter++;
-	// }
+
 }
 
 function astBoolVal(){
@@ -665,23 +529,18 @@ function astBoolVal(){
 }
 
 function astIntOp(IntOpNode){
-	//matchAndConsume('+', astCounter);
 	AST.addNode(IntOpNode.children[0].name, 'branch');
-	//astCounter++;
+
 }
 
 function scopeCheck(){
-  //debugger;
   //scopeCheck allows for more indepth error checking in the ast
   if(semanticAnalist.length == 0){
-    //alert('were in the first if');
     semanticAnalist.push(semanticAST);//create our symbol table in an array
     console.log(semanticAnalist);
-    //printSemanticAnalist();
     console.log(array);
   }
   else{
-    //alert('reached the else');
     var checksemanticAnalist = false; // declare false and convert to true in tree traversal
 		var i = 0;
 		for ( ; i < semanticAnalist.length; i++){
@@ -700,7 +559,7 @@ function scopeCheck(){
     else{
       semanticAnalist.push(semanticAST);
       console.log(semanticAnalist);//if no error throw the array to conosle
-      //printSemanticAnalist();
+      
 
     }
   }
