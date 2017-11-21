@@ -1,34 +1,43 @@
 body{
   background-color: #F7F9FB;
+  font-family: 'Roboto', sans-serif;
   text-align: center;
   padding: 0px;
   /*background-image: url("nature.jpg");*/
 }
-textarea{
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  background-color: #f2f2f2;
-  width:400px;
-  margin: 4em auto;
-  padding-top: 10px;
-  border-radius: .25em;
-  box-shadow: .1em .1em .5em rgba(0,0,0,.45);
-  font-size:15px;
-}
 
 #inputText{
   background-color: white;
+  width: 66%;
+}
+
+#outputText{
+  /*height: 66% !important;*/
+}
+
+#outputParse{
+  width: 100%;
+}
+
+#outputAST{
+
+}
+
+#outputCode{
+
+}
+
+#outputGen{
+
 }
 
 button{
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  color: red;
+  font-family: 'Roboto', sans-serif;
   padding: 10px 10px;
-  font-size: 20px;
-  cursor:pointer;
   text-align:center;
   border: none;
   border-radius: 10px;
-  box-shadow: 0 5px #999;
+  /*box-shadow: 0 5px #999;*/
 }
 #button :hover{
   background-color: #000;
@@ -69,9 +78,15 @@ li a:hover {
     color: #31708E;
 }
 
+form{
+  padding-top: 20px;
+}
+
 
 #home{
-  text-align: center !important;
+  /*text-align: center;
+  width: 50%;
+  margin: 0 auto;*/
 }
 
 #success{
