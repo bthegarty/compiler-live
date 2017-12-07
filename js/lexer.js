@@ -53,9 +53,10 @@ function lexer (){
 	lexmemeCount = 0;
 	currLineNum = 1;
 	var inputText = document.getElementById("inputText").value;
+	// inputText.reset();
 
 	console.log("Lexing " + currLineNum);
-	document.getElementById("outputText").value += "please hold for lex " + currLineNum + "\n";
+	document.getElementById("outputText").value += "Please enter code to be compiled in box " + currLineNum + "\n";
 
 	for (lexmemeBegin = 0; lexmemeBegin < inputText.length; lexmemeBegin++){
 

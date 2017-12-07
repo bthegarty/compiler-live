@@ -39,6 +39,7 @@ button{
 }
   button:hover{
     color: #f9cf00;
+    background-color: #286da8;
   }
 
 ul {
@@ -53,8 +54,8 @@ ul {
 }
 
 li {
-    float: inherit;
-    display: inline-block;
+    /*This was effecting nav positioning*/
+    display: initial;
 }
 
 li a {
@@ -72,18 +73,21 @@ form{
   padding-top: 20px;
 }
 
-#home{
-  /*text-align: center;
-  width: 50%;
-  margin: 0 auto;*/
-}
-
 #success{
   float: left;
+  background-color: #4484ce;
+  text-decoration: none;
+}
+
+#center{
+  display: inline-block;
+  color: #f9cf00;
 }
 
 #fail{
   float: right;
+  background-color: #4484ce;
+  text-decoration: none;
 }
 
 /*bottom bits*/
