@@ -13,6 +13,7 @@ This was meant to be a simplistic build so there is a simplistic install. Follow
 3. Enter a program into the type box.
 4. Press the compile button!
 
+> I keep a live version of this code @ https://bthegarty.github.io
 > -Brendan
 
 
