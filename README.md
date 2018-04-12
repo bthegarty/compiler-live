@@ -15,7 +15,7 @@ This was meant to be a simplistic build so there is a simplistic install. Follow
 
 ## The Grammar 
 
-![Compiler Language Grammar](https://github.com/bthegarty/hegarty-compiler-staging/blob/master/compiler_Grammar.pdf)
+![Compiler Language Grammar](/compiler_Grammar.pdf)
 
 > I keep a live version of this code @ https://bthegarty.github.io
 > -Brendan
