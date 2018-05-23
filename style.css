@@ -3,7 +3,6 @@ body{
   font-family: 'Roboto', sans-serif;
   text-align: center;
   padding: 0px;
-  /*background-image: url("nature.jpg");*/
 }
 
 #inputText{
@@ -35,64 +34,60 @@ button{
   padding: 10px 10px;
   border: none;
   border-radius: 10px;
-  background-color: #4484ce;
 }
   button:hover{
     color: #f9cf00;
     background-color: #286da8;
   }
 
-ul {
-    display: inline-block;
-    list-style-type: none;
+.btn-lg{
+  font-size: 14px !important;
+}
+
+.compile-nav {
+    display: flex;
     margin: 0;
     padding: 0;
     overflow: hidden;
     width: 100%;
-    background-color: #4484ce;
-    border-bottom: 2px solid #d9d9d9;
+    height: 60px;
+    font-size: 16px;
+    background-color: #31b0d5;
+    border-bottom: 2px solid #f9cf00;
 }
 
-li {
-    /*This was effecting nav positioning*/
-    display: initial;
-}
-
-li a {
-    color: #d9d9d9;
-    text-align: inherit;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover {
-    color: #f9cf00;
+.space{
+  height: 20px;
+  width: 100%;
 }
 
 form{
   padding-top: 20px;
 }
 
-#success{
-  float: left;
-  background-color: #4484ce;
-  text-decoration: none;
+.success{
+  margin-right: auto;
+  padding-left: 15px;
+  display: flex;
 }
 
-#center{
-  display: inline-block;
-  color: #f9cf00;
+#success{
+  background-color: #31b0d5;
+}
+
+.fail{
+  display: flex;
+  padding-right: 15px;
 }
 
 #fail{
-  float: right;
-  background-color: #4484ce;
-  text-decoration: none;
+  background-color: #31b0d5;
 }
 
 /*bottom bits*/
 .footer{
   padding-top: 25px;
+  padding-bottom: 25px;
   color: #d9d9d9;
 }
 

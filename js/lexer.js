@@ -33,7 +33,6 @@
 			var lexmemeBegin = 0;
 			var lexmemeCount;
 
-
 /*gonna go to mississippi*/
 
 var tokenHole = []; //token array that we will push to
@@ -422,7 +421,6 @@ function amIMultiChar(forward, newToken, inputText){
 		}//closes switch statement
 	}//closes while
 }//closes function amIMultiChar
-
 
 //single char functions (stuff like ()""a-z0-9)
 //these nodes in the grammar all get their own functions cause things arent dependant on them
